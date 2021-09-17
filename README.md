@@ -7,8 +7,8 @@ This R Workshop is given at the University of Pittsburgh Medical Center with fou
 </br>
 </br>
 </br>
-</br>
-</br>
+
 <p align="center">
-  <img src="https://github.com/yamachang/R_workshop_2021fall/blob/main/Rmeme.jpeg"/>
+  <img src="./files/coding_cat.gif"/>
 </p>
+</br>
