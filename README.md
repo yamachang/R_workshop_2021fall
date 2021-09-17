@@ -8,4 +8,4 @@ This R Workshop is given at the University of Pittsburgh Medical Center with fou
 
 
 
-<img src="https://i.imgur.com/1CssljC.gifv" width="40" height="40" />
+<iframe src="https://giphy.com/embed/3oKIPnAiaMCws8nOsE" width="457" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cat-kitten-computer-3oKIPnAiaMCws8nOsE"></a></p>
