@@ -1,7 +1,7 @@
 ##################################################################
-# Sept 10, 2021
-# Yama Chang
-#
+# Date: Sept 10, 2021
+# Instructor: Yama Chang
+# Course: Data Science in R
 # Topic: Introduction to R - session 1
 ##################################################################
 
@@ -66,7 +66,7 @@
   5 -> x
   y <- "Hello World!" # You can also assign character value to an object
   y
-  
+  x - 2
   # Assign with different values
   x <- 5 + 7 # You assigned 5 + 7 (=12) to x. You just stored 12 to x. We could also say that x is stored with a value 12 in your environment.
   x # R don't show object while you assign them a value. Run the object to show the value (e.g., a numeric value, a character string, a data frame, or a plot)
@@ -75,11 +75,11 @@
   z <- x + y
   z
   # combination
-  a <- c(x, y, z) # A conbination can store everything you want in an object
+  a <- c(x, y, z) # A combination can store everything you want in an object
   a
   b <- c(x, x, x)
   b
-
+  length(a)
   c <- a * b # You can also calculate the same length of combinations
   c
   # functions: You can also apply functions to objects
@@ -98,110 +98,14 @@
   
 ################# Learning assessment I #################
 # Create an object called myHometown and assign your hometown as your value
-
-  
+  myHometown <- "Taiwan"
+  myHometown
   
 # Create a sequence of 1, 4, 7, 10 using seq() and store as mySequence 
-
-  
+  mySequence <- seq(from=1, to=10, by=3)
+  mySequence
   
 ################# Learning assessment I #################
   
   
-### Data Structure
-# Vectors: vector is a basic data structure in R. It contains element of the SAME TYPE. The data types can be logical, integer, double, character, complex or raw.
-# Array & Matrix: Matrix is a special kind of vector. A matrix is a vector with two additional attributes: the number of rows and the number of columns. Arrays can have more than two dimensions.
-# Lists: Lists are ordered collections of objects, where the elements can be of a different type (a list can be a combination of matrices, vectors, other lists, etc.) They are created using the list() function:
-# Data Frames (most important structure in R): Data frame is a two dimensional (row and column) data structure in R. It can store different types of columns.
-  # List components must be vectors (numeric, character or logical vectors), factors, numeric matrices or other data frames.
-  # Vectors, which are the variables in the data frame, must be of the same length.
-  #  It is a special case of a list which has each component of equal length.
-  
-  
-    #--- Matrices ---#
-  m1 <- matrix(1:12, nrow=3, ncol=4) # define a matrix with 3 rows and 4 columns
-  m1
-  # The elements of vectors and matrices are recycled when it is required by the involved dimensions
-  m2 <- matrix(1:8, nrow=4, ncol=4) # create a matrix with 4 rows and 4 columns
-  m2 
-  
-  #--- Array ---#
-  a1 <- array(1:24, dim=c(2,3,4)) # value from 1 to 24; this array contains 2 row, 3 columns, 4 dimensions 
-  a1
-  
-  #--- Lists ---#
-  lab <- list(name="protect", boss=c("Kati","is","the","boss"), staff=10, colours=c(1.5,2.5))
-  lab
-  length(lab) # check how many elements 'lab' has
-  names(lab)  # return `lab` names
-  lab$boss    # using dollar sign to select a vector
-  lab$staff
-  lab$name
-
-  ### Data Frames and data types
-# In addition to numbers, R can handle a variety of other data types. 
-# To demonstrate, I'll make a short data frame with the `tibble` function and manually check the class of some of the variables. 
-# This is also an excellent moment to highlight RStudio's tabbed autocompletion — start entering a variable name and click Tab.
-  
-  example_df = tibble(
-    vec_numeric = 5:8,
-    vec_char = c("Our", "lab", "is", "Protect"),
-    vec_logical = c(TRUE, TRUE, TRUE, FALSE),
-    vec_factor = factor(c("Monday", "Tuesday", "Saturday", "Sunday"), levels = c("Monday", "Tuesday", "Saturday", "Sunday"), labels = c("weekday", "weekday", "weekend", "weekend"))
-  )
-  
-  example_df  
-  
-  ?factor
-
-  levels(example_df$vec_factor)  # show factor level
-  
-  class(example_df$vec_numeric)  # show data type of a column
-  class(example_df$vec_char)
-  class(example_df$vec_logical)
-  class(example_df$vec_factor)
-  
-  str(example_df) # display the internal structure of an R object
-  
-  # Let's play around a larger data set
-  data(mtcars) # here is a built-in data frame in R, called mtcars
-  View(mtcars) # View the data frame
-  ?mtcars      # What's in this built0in data frame?
-  str(mtcars)  # data structure
-  dim(mtcars)  # rows and columns
-  names(mtcars) # column names
-  head(mtcars)  # head of df
-  tail(mtcars)  # tail of df
-  
-  # df[row, column]
-  mtcars[1, 1] # Return the element at the first row & first column
-  
-  # the magic of $ (dollar sign)
-  #--- select an column in a data frame ---#
-  mtcars$hp
-  sd(mtcars$hp) # we can calculate standard deviation of a specific column using dollar sign
-  mean(mtcars$hp)
-  
-  #--- add an column to a data frame ---#
-  mtcars$newcolumn <- 1 # add a new column called `newcolumn` with value 1 
-  View(mtcars)
-  
-  # Another helpful function to examine a data frame
-  # Need to install first. Remember how to install a new package? 
-  skimr::skim(mtcars) # package name::function() 
-  
-  ################# Learning assessments II #################
-  # calculate number of parts by adding Number of forward gears AND Number of carburetors for each type of cars
-  
-  
-  
-  # store this number of parts as a new column in mtcars
-  
-  
-  
-  # find the mean, standard deviation, min, and max value of the number of parts
-  
-  
-  
-  ################# Learning assessments II #################
   
