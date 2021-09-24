@@ -36,7 +36,6 @@ df1 <- filter(df1, group == "ATT")
 #        new_var_name = fun(old_var_name, function_arguments))
 df <- mutate(df,
              gender = recode(gender, `1` = "Female", `2` = "Male")) # We want to change variable item name, so we can use mutate to `recode` the item. If we use the same variable name, it can overwrite the original variable.
-library(lubridate)
 
 df <- mutate(df, 
              ssi_mean = (ssi_worst + ssi_current)/2) # By enter a new variable name, we can save the change in a new variable.
@@ -55,7 +54,7 @@ df <- mutate(df,
 # arrange(your_data_frame, column_you_want_1, column_you_want_2, column_you_want_3, etc)
 
 # Now I want to arrange my df by age. By default the order is ascending.
-arrange(df, age) # the smallest is 60 years age
+df2 <- arrange(df, age) # the smallest is 60 years age
 
 # What if I want a descending order? add desc() to the variable
 arrange(df, desc(age))
@@ -69,16 +68,19 @@ arrange(df, age, desc(ham16)) # arrange by younger age and higher ham
 #--- piping: to pass the result of one function call as an argument to the next function call ---#
 # An example of data cleaning: overwrite data at each stage
 df1 <- select(df, ID, group, gender, age, ham16)
+
 df1 <- filter(df1, group == "ATT")
 df1 <- arrange(df1, desc(ham16))
 df1 <- mutate(df1, 
               gender = recode(gender, `1` = "Female", `2` = "Male"))
+
 # This method clutters our workspace. Any tidier way?
 # Piping (%>%) solves this problem. 
-# Try Shift+Command+M
+# Try Shift+Command+M %>% %>% %>% 
 # It creates a sequential chain by passing the result of one function call as an argument to the next function call
 # Same example but applying piping
-df1 <- df %>% # First, we always tell R what data frame we're cleaning/woring
+
+df2 <- df %>% # First, we always tell R what data frame we're cleaning/workling
   select(ID, group, gender, age, ham16) %>% # Piping is now passing the df as an argument to `select()`. We don't need to write df as the first argument anymore.
   filter(group == "ATT") %>% # Piping again is passing your df with select certain columns as an argument to `filter()`
   arrange(desc(ham16)) %>% # Again, we oon't need to write df as the first argument
@@ -88,8 +90,6 @@ df1 <- df %>% # First, we always tell R what data frame we're cleaning/woring
 ### Data Visualization ###
 # Exploratory data analysis (EDA): applying data visualization method to analyze data sets and summarize their main characteristics 
 # We will use ggplot() which is a plotting function in tidyverse
-# We will be using the same data frame to practice data visualization so let's read it again (since we've made some changes on it.)
-# We're calling it protect_df this time
 
 # We will be working with NOAA (National Oceanic and Atmospheric Administration) weather data, which is downloaded using rnoaa::meteo_pull_monitors function in the code below.
 install.packages("rnoaa") # install rnoaa package to get this data
@@ -113,6 +113,7 @@ weather_df <-
   select(location, id, everything())
 
 weather_df # Take a quick look at this data frame. How many rows and what column it has?
+
 # location = location of weather data collection
 # id = location id
 # date = date of weather data collection
@@ -187,7 +188,7 @@ ggplot(weather_df, aes(x = date, y = tmax, color = location)) +
   geom_smooth(se = FALSE) + 
   facet_grid(. ~ location) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) + # rotate x-axis label to 45 degrees by angle = 45. Adjust the text location using hjust argument.
-  theme(legend.position="left") +
+  theme(legend.position = "left") +
   labs(x = "Date",
        y = "Max Temperature",
        title = "Weather Comparison of Three Site: NY, HA, WA",
