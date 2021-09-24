@@ -4,8 +4,8 @@
 # Course: Data Science in R
 # Topic: Data wrangling - session 2
 ##################################################################
-
-setwd("CHANGE TO YOUR PATH") # set your working directory to your R workshop folder
+getwd()
+setwd("/Users/yama/Desktop/Protect/GitHub/R_workshop_2021fall") # set your working directory to your R workshop folder
 
 library(tidyverse) # we need to load all the package we're going to use everytime 
 # ── Attaching packages ──────────────────────────────── tidyverse 1.3.1 ──
@@ -163,11 +163,11 @@ skimr::skim(df) # package name::function()
 # the first argument to `select` is the data frame you’re selecting; all subsequent arguments are columns you want
 # select(your_data_frame, column_you_want_1, column_you_want_2, column_you_want_3, etc)
 names(df) # take a look at all columns in this df and decide which one you want to select
-select(df, ID, age, gender, race) # You can select the columns by specifying the column names
+df1 <- select(df, ID, age, gender, race) # You can select the columns by specifying the column names
 select(df, ID: race) # You can select the columns by specifying a range of columns using ":"
 select(df, -ID, -consent_date) # You can remove columns you don't want anymore and keep the rest
 select(df, ID, race, group, everything()) # You can select a few and keep every other columns by adding `everything()`
-select(df, GrOuP = group, RACE = race) # You can rename columns names in this function
+select(df, GrOuP = group, RACE = race, everything()) # You can rename columns names in this function
 
 # Some handy helper functions `for select()`: starts_with(), ends_with(), matches(), everything()
 ?select_helpers
@@ -202,12 +202,12 @@ filter(df, group == "DNA") # filter all DNA groups
 filter(df, group %in% c("ATT", "DNA")) # %in%: filter more than one character items
 filter(df, group == "ATT" & age >= 65) # filter attempters aged 65 and older
 
-### Quick recap: what's the difference between using `select` and `filter`?
+### Quick summary: what's the difference between using `select` and `filter`?
 
 
 
 ################# Learning assessments III #################
-# In the `df data, select the columns containing ID, group, ham, cirsg, and ssi current and worst scores, and save it as new data frame called `df_p3`
+# In the `df` data, select the columns containing ID, group, ham, cirsg, and ssi current and worst scores, and save it as new data frame called `df_p3`
 
 
 
@@ -222,45 +222,7 @@ filter(df, group == "ATT" & age >= 65) # filter attempters aged 65 and older
 ################# Learning assessments III #################
 
 
-
-#--- mutate: to change them or create new ones ---#
-?mutate
-# the first argument to `mutate` is the data frame you’re filtering; all subsequent: new variables =function(old variable)
-# mutate(your_data_frame,
-#        new_var_name = fun(old_var_name, function_arguments))
-mutate(df,
-       gender = recode(gender, `1` = "Female", `2` = "Male")) # We want to change variable item name, so we can use mutate to `recode` the item. If we use the same variable name, it can overwrite the original variable.
-library(lubridate)
-
-df <- mutate(df, 
-             ssi_mean = (ssi_worst + ssi_current)/2) # By enter a new variable name, we can save the change in a new variable.
-
-# Now take a look at df's last column. New variables appear at the end of the dataset in the order that they are created.
-
-df <- mutate(df, 
-             ssi_mean = (ssi_worst + ssi_current)/2, # We can change several columns by separating with coma
-             gender = recode(gender, `1` = "Female", `2` = "Male"))
-
-# Now take a look at df's gender` column
-
-#--- arrange: to arrange the order of the rows in your data according to the values in one or more columns ---#
-?arrange
-# the first argument to `arrange` is the data frame you’re selecting; all subsequent arguments are columns you want to arrange
-# arrange(your_data_frame, column_you_want_1, column_you_want_2, column_you_want_3, etc)
-
-# Now I want to arrange my df by age. By default the order is ascending.
-arrange(df, age) # the smallest is 60 years age
-
-# What if I want a descending order? add desc() to the variable
-arrange(df, desc(age))
-
-# You can arrange the order by more than one variable
-arrange(df, age, ham16) # arrange by younger age and lower ham
-
-arrange(df, age, desc(ham16)) # arrange by younger age and higher ham
-
-
-#--- Another way to change values in a variable ---#
+#--- Use base R to change values in a variable ---#
 # Let's take a look at all values in height and weight
 table(df$height)
 table(df$weight)
