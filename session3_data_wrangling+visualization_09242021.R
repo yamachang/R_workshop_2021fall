@@ -126,12 +126,16 @@ range(weather_df$date)
 range(weather_df$prcp, na.rm = T) # if a column including NA, add na.rm = T when doing calculation like range, mean, sd, max etc
 
 #--- Basic scatterplot ---#
-# First, we need to map variables to the X and Y coordinate aesthetics. 
+# Layer 1: Name the data set - first, we need to tell R what data set we're working with
+
+ggplot(data = weather_df)
+
+# Layer 2: Then, we need to map variables to the X and Y coordinate aesthetics. 
 # Meaning that we are creating a blank plot and tell R what's our X and Y variables
 
 ggplot(weather_df, aes(x = tmin, y = tmax)) # Take a look at the Plots tab -->
 
-# Second, we need to add geom to define the type of plot.
+# Layer 3: Third, we need to add geom to define the type of plot.
 
 ggplot(weather_df, aes(x = tmin, y = tmax)) +
   geom_point() # geom_point() is used to create scatterplot which is useful for displaying two continuous variables
@@ -142,12 +146,12 @@ ggplot(weather_df, aes(x = tmin, y = tmax)) +
   # Use whitespace
 
 #--- Advanced scatterplot ---#
-# Let's give it some color using the color aesthetic
+# Also in layer 3: Let's give it some color using the color aesthetic
 
 ggplot(weather_df, aes(x = tmin, y = tmax)) + # Same as before, we always need to create a blank map and tell your code what's your X and Y axis
   geom_point(aes(color = location)) # Now we're telling R: we want the point color based on column `names`
 
-# Let's add a smooth curve to see the trend
+# Layer 4: Let's add a smooth curve to see the trend
 
 ggplot(weather_df, aes(x = tmin, y = tmax)) + # Same as before, we always need to create a blank map and tell your code what's your X and Y axis
   geom_point(aes(color = location)) + # Now we're telling R: we want the point color based on column `names`
@@ -160,7 +164,7 @@ ggplot(weather_df, aes(x = tmin, y = tmax)) +
   geom_smooth(se = FALSE) 
 
 # Now we got a sense about the relationship of our variables but there're some overlaps. 
-# Let's try to separate three location.
+# Layer 5: separate three location to three panels!
 
 ggplot(weather_df, aes(x = tmin, y = tmax, color = location)) +
   geom_point(alpha = .5) +
@@ -174,7 +178,7 @@ ggplot(weather_df, aes(x = tmin, y = tmax, color = location)) +
   geom_smooth(se = FALSE) + 
   facet_grid(location ~ .)
 
-# Let's play around with this dataset. 
+# Let's play around with this dataset to make it more informative
 # See the relationship between year and maximum temperature in each location
 # We can also change the size of points by the amount of precipitation
 
