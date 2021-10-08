@@ -9,7 +9,7 @@
 setwd("~/Desktop/Protect/GitHub/R_workshop_2021fall")
 library(tidyverse)
 library(corrplot) # for correlation 
-
+library(psych)
 
 # Load today's dataset
 data <- read_csv("./data/s4_practice.csv") # Load a csv file I stored in a folder called "data" in my working directory
@@ -21,10 +21,11 @@ data <- read_csv("./data/s4_practice.csv") # Load a csv file I stored in a folde
 # Y: dependent variable (DV) / outcome variables
 # IV --> DV: If IV could predict DV
 #  X --> Y : If X could predict Y
+
 # In R, the we use this direction: Y ~ X: If X could predict Y
 
 #--- 1. Correlation ---#
-# Q: Whether MMSE score is associated with DRS subscale/total in late-life suicide?
+# Q: Whether MMSE score is associated with DRS subscales/total in late-life suicide?
 # Let's take a look
 plot(data$MMSE_score, data$drs_total)
 
@@ -39,7 +40,7 @@ cor(df_corr, use = 'pairwise.complete.obs', method = "pearson")
 cor <- corr.test(df_corr,
                  use = "pairwise.complete.obs", method="pearson", alpha=.05)
 # Plot it!
-print(corrplot(cor$r, method="circle", type="upper", # what if you change "circle" to "number"?
+print(corrplot(cor$r, method="number", type="upper", # what if you change "circle" to "number"?
                p.mat = cor$p, sig.level=0.05, insig = "blank",
                order="hclust")) 
 
@@ -59,10 +60,11 @@ boxplot(data$wtar_s_adj ~ data$pres_curr_subs)
 t.test(data$wtar_s_adj ~ data$pres_curr_subs)
 
 
+
 #--- 3. ANOVA (Analysis of variance) ---#
 # Compare two and MORE group difference
 # Whether the (mean) differences between 2 and MORE groups of data are statistically significant?
-# Q: Is there difference of depression severity between suicidal attempters, ideators, and HC?
+# Q: Is there difference of depression severity between suicidal attempters, ideators, and depressed group?
 
 # Need to make the group as factor format (a categorical variable with levels)
 data$Group <- as.factor(data$Group)
@@ -84,7 +86,7 @@ TukeyHSD(model) # pairwise comparison between 2 paired groups
 # Logistic regression: when your outcome variable (Y) is binary variable
 
 ### Let's start from a simple linear regression model ###
-# Q: Does physical burden has effect on cognitive function (MMSE?
+# Q: Does physical burden has effect on cognitive function (MMSE)?
 
 ?lm
 
@@ -109,7 +111,7 @@ plot(model_b)
 # Q: Does physical burden has effect on current substance abuse
 
 ?glm
-pres_life_subs
+
 model_c <- glm(pres_curr_subs ~ MMSE_score + AgeConsent + Gender, data = data)
 summary(model_c)
 model_c %>% 
