@@ -1,4 +1,4 @@
-# Yama's R Workshop
+# Data Science in R Workshop
 
 Instructor: Yama Chang, M.A. (https://yamaychang.me/) </br>
 Course: Data Science in R
